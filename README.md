@@ -13,15 +13,16 @@ Budget Buddy API is a single-user budget tracking system that leverages Notion d
 - ✅ **Health Check** - `/health` endpoint
 - ✅ **Notion Connection** - Successfully connecting to Notion API
 - ✅ **GET Categories** - `/api/v1/categories` endpoint fetches data from Notion
+- ✅ **GET Category by ID** - `/api/v1/categories/:id` endpoint tested and working
+- ✅ **Auto-generated Category IDs** - Sequential format (CAT-001, CAT-002, etc.)
 
-**What's Built But Not Tested:**
-- 🔧 Category repository with full CRUD methods (create, update, delete not tested)
-- 🔧 Category service layer
-- 🔧 Category controller
-- 🔧 Category routes structure
+**In Progress:**
+- 🔧 POST create category endpoint (repository layer complete)
 
 **Next Steps:**
-- 📋 Test and verify remaining category endpoints (POST, PUT, DELETE)
+- 📋 Complete POST create category (service, controller, routes)
+- 📋 Implement PUT update category
+- 📋 Implement DELETE category
 - 📋 Build Transactions API (more complex with relations)
 - 📋 Build Accounts API (read-only)
 - 📋 Build Dashboard API (aggregations)
@@ -118,11 +119,11 @@ The API will be available at `http://localhost:3000`
 - `GET /health` - Server health status
 
 ### Categories (In Progress)
-- ✅ `GET /api/v1/categories` - List all categories (working)
-- 🔧 `GET /api/v1/categories/:id` - Get single category (code written, not tested)
-- 🔧 `POST /api/v1/categories` - Create new category (code written, not tested)
-- 🔧 `PUT /api/v1/categories/:id` - Update category (code written, not tested)
-- 🔧 `DELETE /api/v1/categories/:id` - Delete (archive) category (code written, not tested)
+- ✅ `GET /api/v1/categories` - List all categories
+- ✅ `GET /api/v1/categories/:id` - Get single category by ID
+- 🔧 `POST /api/v1/categories` - Create new category (repository complete, needs service/controller/routes)
+- 📋 `PUT /api/v1/categories/:id` - Update category (planned)
+- 📋 `DELETE /api/v1/categories/:id` - Delete (archive) category (planned)
 
 ### Transactions 📋 Planned
 - `GET /api/v1/transactions` - List all transactions (with filtering)
@@ -172,8 +173,6 @@ npm run dev    # Run in development mode with auto-reload (nodemon)
 
 ## Notion Database Setup
 
-See detailed setup instructions in `PLAN/project-plan.md` Phase 0.
-
 Required databases:
 1. **Categories** - `Name` (Title), `Category ID` (Text)
 2. **Accounts** - `Name` (Title), `Initial Balance` (Number), `Current Balance` (Number)
@@ -183,7 +182,7 @@ Required databases:
 
 - [x] Phase 0: Notion workspace setup
 - [x] Phase 1: Foundation (Express, config, error handling)
-- [ ] Phase 2: Categories API (structure in place, only GET all tested)
+- [ ] Phase 2: Categories API (GET endpoints complete, POST in progress)
 - [ ] Phase 3: Transactions API
 - [ ] Phase 4: Accounts & Dashboard
 - [ ] Phase 5: Polish & documentation
