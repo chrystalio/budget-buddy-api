@@ -1,35 +1,202 @@
-# Budget Buddy API (Planning Phase)
+# Budget Buddy API
+
+A RESTful API for personal budget tracking with Notion as the data store, following clean architecture principles.
 
 ## Project Overview
 
-This repository is for the **Budget Buddy API**, a planned RESTful API designed to serve as the backend for a personal budget tracking application. The project is currently in its **planning and conceptualization phase**.
+Budget Buddy API is a single-user budget tracking system that leverages Notion databases for data persistence. The project follows a layered architecture approach with clear separation between repositories, services, controllers, and routes.
 
-The core idea is to build a clean, well-structured API following best practices for RESTful services. A key architectural decision is to utilize **Notion** as the primary data store, interacting with it via the official Notion API. This approach aims to leverage Notion's flexible database capabilities for managing financial data.
+## Current Status: Phase 2 Complete ✅
 
-## Planned Key Features (Minimum Viable Product - MVP)
+**Implemented Features:**
+- ✅ **Categories API** - Full CRUD operations for transaction categories
+- ✅ **Clean Architecture** - Repository → Service → Controller → Routes pattern
+- ✅ **Notion Integration** - Working connection to Notion databases
+- ✅ **Error Handling** - Global error middleware with custom error classes
+- ✅ **Health Check** - Basic server health endpoint
 
-The initial development will focus on delivering a Minimum Viable Product (MVP) with the following core functionalities:
+**In Progress:**
+- 🔄 Testing remaining category endpoints (POST, PUT, DELETE)
 
-*   **Transaction Management:**
-    *   The API will support Create, Read, Update, and Delete (CRUD) operations for both income and expense transactions.
-    *   Each transaction will be designed to include essential details such as date, description, amount, type (income/expense), and links to categories and accounts.
-*   **Categorization:**
-    *   Users will be able to define and manage their own categories for transactions (e.g., Groceries, Rent, Salary, Utilities).
-*   **Account Management:**
-    *   The API will allow for tracking multiple financial accounts (e.g., checking, savings, credit cards) and their respective balances.
-*   **Dashboard Overview:**
-    *   A dedicated endpoint will provide aggregated financial summaries, offering insights into total income, total expenses, net balance, and spending breakdowns by category over specified periods.
+**Coming Next:**
+- 📋 Transactions API (with category/account relations and filtering)
+- 📋 Accounts API (read-only in MVP)
+- 📋 Dashboard API (financial summaries and aggregations)
 
-## Technologies (Planned)
+## Technologies
 
-*   **Node.js:** The chosen JavaScript runtime environment for the API.
-*   **Express.js:** A fast, unopinionated, minimalist web framework for Node.js, forming the backbone of the API.
-*   **Notion API:** The official API will be used to interface with Notion databases for all data persistence.
+- **Node.js** - JavaScript runtime
+- **Express.js 5.x** - Web framework
+- **Notion API** - Data persistence via [@notionhq/client](https://github.com/makenotion/notion-sdk-js)
+- **dotenv** - Environment variable management
 
-## Current Status
+## Architecture
 
-This project is currently in the **planning and design stage**. No code has been written yet, but the architectural decisions, data models, and API endpoints are being conceptualized.
+This project follows **clean architecture** principles with four distinct layers:
 
-## Next Steps
+```
+┌─────────────┐
+│   Routes    │  HTTP endpoint definitions
+└──────┬──────┘
+       │
+┌──────▼──────┐
+│ Controllers │  Request/response handling
+└──────┬──────┘
+       │
+┌──────▼──────┐
+│  Services   │  Business logic
+└──────┬──────┘
+       │
+┌──────▼──────┐
+│Repositories │  Data access (Notion API)
+└─────────────┘
+```
 
-The next steps involve setting up the basic project structure, configuring Notion integration, and beginning the implementation of the core API functionalities.
+### Project Structure
+
+```
+src/
+├── routes/          # API endpoint definitions
+├── controllers/     # HTTP request handlers
+├── services/        # Business logic layer
+├── repositories/    # Notion API interactions
+├── middleware/      # Express middleware (error handling)
+└── config/          # Configuration and environment variables
+```
+
+## Setup Instructions
+
+### Prerequisites
+
+1. **Node.js** (v14 or higher)
+2. **Notion Account** with:
+   - A Notion integration created
+   - Three databases set up: Categories, Accounts, Transactions
+   - Integration connected to all databases
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd budget-buddy-api
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Configure environment variables:
+   ```bash
+   cp .env.example .env
+   ```
+
+   Then edit `.env` with your Notion credentials:
+   ```
+   NOTION_API_KEY=your_notion_integration_token
+   NOTION_CATEGORIES_DATABASE_ID=your_categories_db_id
+   NOTION_ACCOUNTS_DATABASE_ID=your_accounts_db_id
+   NOTION_TRANSACTIONS_DATABASE_ID=your_transactions_db_id
+   PORT=3000
+   NODE_ENV=development
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+The API will be available at `http://localhost:3000`
+
+## API Endpoints
+
+### Health Check
+- `GET /health` - Server health status
+
+### Categories ✅ Implemented
+- `GET /api/v1/categories` - List all categories
+- `GET /api/v1/categories/:id` - Get single category
+- `POST /api/v1/categories` - Create new category
+- `PUT /api/v1/categories/:id` - Update category
+- `DELETE /api/v1/categories/:id` - Delete (archive) category
+
+### Transactions 📋 Planned
+- `GET /api/v1/transactions` - List all transactions (with filtering)
+- `GET /api/v1/transactions/:id` - Get single transaction
+- `POST /api/v1/transactions` - Create new transaction
+- `PUT /api/v1/transactions/:id` - Update transaction
+- `DELETE /api/v1/transactions/:id` - Delete transaction
+
+### Accounts 📋 Planned
+- `GET /api/v1/accounts` - List all accounts with balances
+- `GET /api/v1/accounts/:id` - Get single account
+
+### Dashboard 📋 Planned
+- `GET /api/v1/dashboard?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD` - Financial summary
+
+## Development
+
+### Available Scripts
+
+```bash
+npm start      # Run in production mode
+npm run dev    # Run in development mode with auto-reload (nodemon)
+```
+
+### Code Organization
+
+**Repositories** (`src/repositories/`)
+- Direct Notion API interactions
+- Data mapping between Notion format and API models
+- No business logic
+
+**Services** (`src/services/`)
+- Business logic and validation
+- Orchestrates repository calls
+- No HTTP knowledge
+
+**Controllers** (`src/controllers/`)
+- HTTP request/response handling
+- Extracts request data
+- Calls service layer
+- Returns proper status codes
+
+**Routes** (`src/routes/`)
+- Endpoint definitions
+- Maps URLs to controller methods
+- No logic
+
+## Notion Database Setup
+
+See detailed setup instructions in `PLAN/project-plan.md` Phase 0.
+
+Required databases:
+1. **Categories** - `Name` (Title), `Category ID` (Text)
+2. **Accounts** - `Name` (Title), `Initial Balance` (Number), `Current Balance` (Number)
+3. **Transactions** - `Name` (Title), `Date` (Date), `Amount` (Number), `Type` (Select: Income/Expense), `Category` (Relation), `Account` (Relation), `Notes` (Text)
+
+## Project Roadmap
+
+- [x] Phase 0: Notion workspace setup
+- [x] Phase 1: Foundation (Express, config, error handling)
+- [x] Phase 2: Categories API
+- [ ] Phase 3: Transactions API
+- [ ] Phase 4: Accounts & Dashboard
+- [ ] Phase 5: Polish & documentation
+- [ ] Phase 6: Testing infrastructure (future)
+
+## Contributing
+
+This is a personal learning project. Feel free to fork and adapt for your own use.
+
+## License
+
+MIT
+
+## Notes
+
+- This is a **single-user application** - no authentication/authorization in MVP
+- Data is stored in **your own Notion workspace**
+- **Manual setup required** - you must create databases and integration yourself
+- Follows clean architecture and REST API best practices
