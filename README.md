@@ -6,22 +6,25 @@ A RESTful API for personal budget tracking with Notion as the data store, follow
 
 Budget Buddy API is a single-user budget tracking system that leverages Notion databases for data persistence. The project follows a layered architecture approach with clear separation between repositories, services, controllers, and routes.
 
-## Current Status: Phase 2 Complete ✅
+## Current Status: Early Development 🚧
 
-**Implemented Features:**
-- ✅ **Categories API** - Full CRUD operations for transaction categories
-- ✅ **Clean Architecture** - Repository → Service → Controller → Routes pattern
-- ✅ **Notion Integration** - Working connection to Notion databases
-- ✅ **Error Handling** - Global error middleware with custom error classes
-- ✅ **Health Check** - Basic server health endpoint
+**What's Working:**
+- ✅ **Foundation** - Express app with middleware and error handling
+- ✅ **Health Check** - `/health` endpoint
+- ✅ **Notion Connection** - Successfully connecting to Notion API
+- ✅ **GET Categories** - `/api/v1/categories` endpoint fetches data from Notion
 
-**In Progress:**
-- 🔄 Testing remaining category endpoints (POST, PUT, DELETE)
+**What's Built But Not Tested:**
+- 🔧 Category repository with full CRUD methods (create, update, delete not tested)
+- 🔧 Category service layer
+- 🔧 Category controller
+- 🔧 Category routes structure
 
-**Coming Next:**
-- 📋 Transactions API (with category/account relations and filtering)
-- 📋 Accounts API (read-only in MVP)
-- 📋 Dashboard API (financial summaries and aggregations)
+**Next Steps:**
+- 📋 Test and verify remaining category endpoints (POST, PUT, DELETE)
+- 📋 Build Transactions API (more complex with relations)
+- 📋 Build Accounts API (read-only)
+- 📋 Build Dashboard API (aggregations)
 
 ## Technologies
 
@@ -114,12 +117,12 @@ The API will be available at `http://localhost:3000`
 ### Health Check
 - `GET /health` - Server health status
 
-### Categories ✅ Implemented
-- `GET /api/v1/categories` - List all categories
-- `GET /api/v1/categories/:id` - Get single category
-- `POST /api/v1/categories` - Create new category
-- `PUT /api/v1/categories/:id` - Update category
-- `DELETE /api/v1/categories/:id` - Delete (archive) category
+### Categories (In Progress)
+- ✅ `GET /api/v1/categories` - List all categories (working)
+- 🔧 `GET /api/v1/categories/:id` - Get single category (code written, not tested)
+- 🔧 `POST /api/v1/categories` - Create new category (code written, not tested)
+- 🔧 `PUT /api/v1/categories/:id` - Update category (code written, not tested)
+- 🔧 `DELETE /api/v1/categories/:id` - Delete (archive) category (code written, not tested)
 
 ### Transactions 📋 Planned
 - `GET /api/v1/transactions` - List all transactions (with filtering)
@@ -180,7 +183,7 @@ Required databases:
 
 - [x] Phase 0: Notion workspace setup
 - [x] Phase 1: Foundation (Express, config, error handling)
-- [x] Phase 2: Categories API
+- [ ] Phase 2: Categories API (structure in place, only GET all tested)
 - [ ] Phase 3: Transactions API
 - [ ] Phase 4: Accounts & Dashboard
 - [ ] Phase 5: Polish & documentation
