@@ -5,6 +5,12 @@ async function getAllCategories() {
     return categories;
 }
 
+async function getCategoryById(id) {
+    const category = await categoryRepository.findById(id);
+    return category;
+}
+
 module.exports = {
     getAllCategories,
+    getCategoryById,
 };
