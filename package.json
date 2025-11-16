@@ -1,15 +1,27 @@
 {
   "name": "budget-buddy-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "RESTful API for personal budget tracking with Notion as data store",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "budget",
+    "notion",
+    "api",
+    "express"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@notionhq/client": "^2.2.15",
+    "dotenv": "^16.4.5",
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }
