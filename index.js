@@ -1,6 +1,7 @@
 const express = require('express');
 const config = require('./src/config');
 const { errorHandler, notFoundHandler } = require('./src/middleware/errorMiddleware');
+const routes = require('./src/routes');
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.get('/health', (req, res) => {
 });
 
 // API routes will be added here
-// app.use('/api/v1', routes);
+app.use('/api/v1', routes);
 
 // 404 handler - must be after all routes
 app.use(notFoundHandler);
