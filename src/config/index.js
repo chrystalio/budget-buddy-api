@@ -41,7 +41,6 @@ function validateConfig() {
     process.exit(1);
   }
 
-  // Validate database IDs are in correct format (32 characters, no hyphens)
   const databaseIds = [
     { name: 'NOTION_TRANSACTIONS_DATABASE_ID', value: config.notionDatabases.transactions },
     { name: 'NOTION_CATEGORIES_DATABASE_ID', value: config.notionDatabases.categories },
@@ -49,7 +48,7 @@ function validateConfig() {
   ];
 
   const invalidIds = databaseIds.filter(db => {
-    const id = db.value.replace(/-/g, ''); // Remove hyphens if present
+    const id = db.value.replace(/-/g, '');
     return id.length !== 32;
   });
 
