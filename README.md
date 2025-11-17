@@ -12,17 +12,16 @@ Budget Buddy API is a single-user budget tracking system that leverages Notion d
 - ✅ **Foundation** - Express app with middleware and error handling
 - ✅ **Health Check** - `/health` endpoint
 - ✅ **Notion Connection** - Successfully connecting to Notion API
-- ✅ **GET Categories** - `/api/v1/categories` endpoint fetches data from Notion
-- ✅ **GET Category by ID** - `/api/v1/categories/:id` endpoint tested and working
+- ✅ **Categories API (Read/Create)**:
+  - GET all categories - `/api/v1/categories`
+  - GET category by ID - `/api/v1/categories/:id`
+  - POST create category - `/api/v1/categories` (with validation and auto-generated IDs)
 - ✅ **Auto-generated Category IDs** - Sequential format (CAT-001, CAT-002, etc.)
-
-**In Progress:**
-- 🔧 POST create category endpoint (repository layer complete)
+- ✅ **Input Validation** - Request body validation with proper error handling
 
 **Next Steps:**
-- 📋 Complete POST create category (service, controller, routes)
-- 📋 Implement PUT update category
-- 📋 Implement DELETE category
+- 📋 Implement PUT update category endpoint
+- 📋 Implement DELETE category endpoint
 - 📋 Build Transactions API (more complex with relations)
 - 📋 Build Accounts API (read-only)
 - 📋 Build Dashboard API (aggregations)
@@ -118,10 +117,13 @@ The API will be available at `http://localhost:3000`
 ### Health Check
 - `GET /health` - Server health status
 
-### Categories (In Progress)
+### Categories (Partial - Read/Create Complete)
 - ✅ `GET /api/v1/categories` - List all categories
 - ✅ `GET /api/v1/categories/:id` - Get single category by ID
 - ✅ `POST /api/v1/categories` - Create new category
+  - Request body: `{ "name": "Category Name" }`
+  - Auto-generates Category ID (CAT-001, CAT-002, etc.)
+  - Validates and sanitizes input
 - 📋 `PUT /api/v1/categories/:id` - Update category (planned)
 - 📋 `DELETE /api/v1/categories/:id` - Delete (archive) category (planned)
 
@@ -182,7 +184,7 @@ Required databases:
 
 - [x] Phase 0: Notion workspace setup
 - [x] Phase 1: Foundation (Express, config, error handling)
-- [ ] Phase 2: Categories API (GET endpoints complete, POST in progress)
+- [ ] Phase 2: Categories API (GET and POST complete ✅ | PUT and DELETE remaining)
 - [ ] Phase 3: Transactions API
 - [ ] Phase 4: Accounts & Dashboard
 - [ ] Phase 5: Polish & documentation
