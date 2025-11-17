@@ -10,7 +10,13 @@ async function getCategoryById(id) {
     return category;
 }
 
+async function createCategory(data) {
+    const category = await categoryRepository.create(data);
+    return category;
+}
+
 module.exports = {
     getAllCategories,
     getCategoryById,
+    createCategory,
 };
