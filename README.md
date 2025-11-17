@@ -121,7 +121,7 @@ The API will be available at `http://localhost:3000`
 ### Categories (In Progress)
 - ✅ `GET /api/v1/categories` - List all categories
 - ✅ `GET /api/v1/categories/:id` - Get single category by ID
-- 🔧 `POST /api/v1/categories` - Create new category (repository complete, needs service/controller/routes)
+- ✅ `POST /api/v1/categories` - Create new category
 - 📋 `PUT /api/v1/categories/:id` - Update category (planned)
 - 📋 `DELETE /api/v1/categories/:id` - Delete (archive) category (planned)
 
