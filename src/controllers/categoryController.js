@@ -1,4 +1,5 @@
 const categoryService = require('../services/categoryService');
+const { ValidationError } = require('../middleware/errorMiddleware');
 
 async function getAllCategories(req, res, next) {
     try {
@@ -34,7 +35,26 @@ async function getCategoryById(req, res, next) {
     }
 }
 
+async function createCategory(req, res, next) {
+    try {
+        const { name } = req.body;
+        if (!name || !name.trim()) {
+            throw new ValidationError('Category name is required and cannot be empty!');
+        }
+
+        const newCategory = await categoryService.createCategory({ name: name.trim() });
+        return res.status(201).json({
+            success: true,
+            data: newCategory,
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+
 module.exports = {
     getAllCategories,
     getCategoryById,
+    createCategory,
 };
