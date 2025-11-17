@@ -49,13 +49,10 @@ async function findById(id) {
  */
 async function generateNextCategoryId() {
     const allCategories = await findAll();
-
-    // Find the highest existing category number
     let maxNumber = 0;
 
     for (const category of allCategories) {
         if (category.categoryId) {
-            // Extract number from format "CAT-001"
             const match = category.categoryId.match(/CAT-(\d+)/);
             if (match) {
                 const num = parseInt(match[1], 10);
@@ -65,8 +62,6 @@ async function generateNextCategoryId() {
             }
         }
     }
-
-    // Generate next ID with zero-padding (CAT-001, CAT-002, etc.)
     const nextNumber = maxNumber + 1;
     return `CAT-${String(nextNumber).padStart(3, '0')}`;
 }
