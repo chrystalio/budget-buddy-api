@@ -6,22 +6,23 @@ A RESTful API for personal budget tracking with Notion as the data store, follow
 
 Budget Buddy API is a single-user budget tracking system that leverages Notion databases for data persistence. The project follows a layered architecture approach with clear separation between repositories, services, controllers, and routes.
 
-## Current Status: Early Development 🚧
+## Current Status: Phase 2 Complete ✅
 
 **What's Working:**
 - ✅ **Foundation** - Express app with middleware and error handling
 - ✅ **Health Check** - `/health` endpoint
 - ✅ **Notion Connection** - Successfully connecting to Notion API
-- ✅ **Categories API (Read/Create)**:
+- ✅ **Categories API (Full CRUD)**:
   - GET all categories - `/api/v1/categories`
   - GET category by ID - `/api/v1/categories/:id`
   - POST create category - `/api/v1/categories` (with validation and auto-generated IDs)
+  - PUT update category - `/api/v1/categories/:id` (with validation)
+  - DELETE category - `/api/v1/categories/:id` (soft delete/archive)
 - ✅ **Auto-generated Category IDs** - Sequential format (CAT-001, CAT-002, etc.)
 - ✅ **Input Validation** - Request body validation with proper error handling
+- ✅ **Comprehensive Testing** - All endpoints tested with success and error cases
 
 **Next Steps:**
-- 📋 Implement PUT update category endpoint
-- 📋 Implement DELETE category endpoint
 - 📋 Build Transactions API (more complex with relations)
 - 📋 Build Accounts API (read-only)
 - 📋 Build Dashboard API (aggregations)
@@ -117,15 +118,18 @@ The API will be available at `http://localhost:3000`
 ### Health Check
 - `GET /health` - Server health status
 
-### Categories (Partial - Read/Create Complete)
+### Categories (Complete ✅)
 - ✅ `GET /api/v1/categories` - List all categories
 - ✅ `GET /api/v1/categories/:id` - Get single category by ID
 - ✅ `POST /api/v1/categories` - Create new category
   - Request body: `{ "name": "Category Name" }`
   - Auto-generates Category ID (CAT-001, CAT-002, etc.)
   - Validates and sanitizes input
-- 📋 `PUT /api/v1/categories/:id` - Update category (planned)
-- 📋 `DELETE /api/v1/categories/:id` - Delete (archive) category (planned)
+- ✅ `PUT /api/v1/categories/:id` - Update category
+  - Request body: `{ "name": "Updated Name" }`
+  - Validates input and handles errors
+- ✅ `DELETE /api/v1/categories/:id` - Delete (archive) category
+  - Soft delete using Notion archive feature
 
 ### Transactions 📋 Planned
 - `GET /api/v1/transactions` - List all transactions (with filtering)
@@ -184,7 +188,7 @@ Required databases:
 
 - [x] Phase 0: Notion workspace setup
 - [x] Phase 1: Foundation (Express, config, error handling)
-- [ ] Phase 2: Categories API (GET and POST complete ✅ | PUT and DELETE remaining)
+- [x] Phase 2: Categories API - Full CRUD Complete ✅
 - [ ] Phase 3: Transactions API
 - [ ] Phase 4: Accounts & Dashboard
 - [ ] Phase 5: Polish & documentation
