@@ -15,8 +15,20 @@ async function createCategory(data) {
     return category;
 }
 
+async function updateCategory(id, data) {
+    const category = await categoryRepository.update(id, data);
+    return category;
+}
+
+async function deleteCategory(id) {
+    const category = await categoryRepository.delete(id);
+    return category;
+}
+
 module.exports = {
     getAllCategories,
     getCategoryById,
     createCategory,
+    updateCategory,
+    deleteCategory,
 };
