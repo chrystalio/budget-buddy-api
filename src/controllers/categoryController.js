@@ -75,6 +75,7 @@ async function deleteCategory(req, res, next) {
         const deletedCategory = await categoryService.deleteCategory(categoryId);
         res.status(200).json({
             success: true,
+            message: 'Category deleted successfully',
             data: deletedCategory,
         });
     } catch (error) {
