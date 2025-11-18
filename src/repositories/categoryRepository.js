@@ -96,9 +96,56 @@ async function create(data) {
     }
 }
 
+async function update(id, data) {
+    try {
+        const properties = {};
+        if (!data.name) {
+            throw new NotionApiError('Category name is required for update');
+        }
+
+        properties.Name = {
+            title: [{ text: { content: data.name } }]
+        };
+
+        const response = await notion.pages.update({
+            page_id: id,
+            properties
+        });
+        return mapNotionPageToCategory(response);
+    } catch (error) {
+        if (error.code === 'object_not_found') {
+            throw new NotFoundError(`Category with ID ${id} not found`);
+        }
+        if (error.code === 'validation_error') {
+            throw new NotionApiError(`Invalid category ID format: ${id}`);
+        }
+        throw new NotionApiError(`Failed to update category: ${error.message}`);
+    }
+}
+
+async function deleteCategory(id) {
+    try {
+        const response = await notion.pages.update({
+            page_id: id,
+            archived: true
+        });
+        return mapNotionPageToCategory(response);
+    } catch (error) {
+        if (error.code === 'object_not_found') {
+            throw new NotFoundError(`Category with ID ${id} not found`);
+        }
+        if (error.code === 'validation_error') {
+            throw new NotionApiError(`Invalid category ID format: ${id}`);
+        }
+        throw new NotionApiError(`Failed to delete category: ${error.message}`);
+    }
+}
+
 module.exports = {
     findAll,
     findById,
     create,
+    update,
+    delete: deleteCategory,
     mapNotionPageToCategory,
 };
