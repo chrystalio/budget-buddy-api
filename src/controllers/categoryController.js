@@ -52,9 +52,41 @@ async function createCategory(req, res, next) {
     }
 }
 
+async function updateCategory(req, res, next) {
+    try {
+        const categoryId = req.params.id;
+        const { name } = req.body;
+        if (!name || !name.trim()) {
+            throw new ValidationError('Category name is required and cannot be empty!');
+        }
+        const updatedCategory = await categoryService.updateCategory(categoryId, { name: name.trim() });
+        res.status(200).json({
+            success: true,
+            data: updatedCategory,
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function deleteCategory(req, res, next) {
+    try {
+        const categoryId = req.params.id;
+        const deletedCategory = await categoryService.deleteCategory(categoryId);
+        res.status(200).json({
+            success: true,
+            data: deletedCategory,
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
 
 module.exports = {
     getAllCategories,
     getCategoryById,
     createCategory,
+    updateCategory,
+    deleteCategory,
 };
